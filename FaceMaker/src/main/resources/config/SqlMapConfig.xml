@@ -8,8 +8,9 @@
 	</typeAliases>
 	
 	<!-- mapper파일 등록 -->
+	
 	<mappers>
-		
+		<mapper resource="mapper/UserInfoMapper.xml"/> 
 	</mappers>
 </configuration>
 
