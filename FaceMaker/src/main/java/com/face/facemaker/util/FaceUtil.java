@@ -3,25 +3,27 @@ package com.face.facemaker.util;
 import java.net.URI;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
+import java.io.File;
 
 public class FaceUtil {
 	// Replace <Subscription Key> with your valid subscription key.
 	private static final String subscriptionKey = "b289648b9a6444878d72f8485e569fa0";
 	private static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
-	private static final String imageWithFaces = "{\"url\":\"https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg\"}";
-	private static final String faceAttributes =
-        "age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise";
-
+	//private static final String imageWithFaces = "{\"url\":\"file:///C:/Users/ELIJAH/Desktop/FaceMaker_BACK/FaceMaker/src/main/webapp/img/salah.JPG\"}";
+	//private static final String imageWithFaces = "{\"url\":\"https://dimg.donga.com/wps/NEWS/IMAGE/2019/11/05/98221000.2.jpg\"}";
+	//private static final String imageWithFaces = "{\"url\":\"http://127.0.0.1:9090/face/img/salah.JPG\"}";
+	
+	
 	public static void main(String[] args) {
-		HttpClient httpclient = HttpClientBuilder.create().build();
+		CloseableHttpClient httpclient = HttpClients.createDefault();
 
 		try {
 			URIBuilder builder = new URIBuilder(uriBase);
@@ -29,42 +31,33 @@ public class FaceUtil {
 			// Request parameters. All of them are optional.
 			builder.setParameter("returnFaceId", "true");
 			builder.setParameter("returnFaceLandmarks", "false");
-			builder.setParameter("returnFaceAttributes", faceAttributes);
+			builder.setParameter("returnFaceAttributes", "age,emotion");
 
 			// Prepare the URI for the REST API call.
 			URI uri = builder.build();
 			HttpPost request = new HttpPost(uri);
 
 			// Request headers.
-			request.setHeader("Content-Type", "application/json");
+			request.setHeader("Content-Type", "application/octet-stream");
 			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
-
-			// Request body.
-			StringEntity reqEntity = new StringEntity(imageWithFaces);
+			
+			//Request Body
+			//File file = new File("C:\\Users\\ELIJAH\\Desktop\\FaceMaker_BACK\\FaceMaker\\src\\main\\webapp\\img\\salah.JPG");
+			File file = new File("./src/main/webapp/img/salah.JPG");
+			FileEntity reqEntity = new FileEntity(file, ContentType.APPLICATION_OCTET_STREAM);
 			request.setEntity(reqEntity);
-
-			// Execute the REST API call and get the response entity.
+			
 			HttpResponse response = httpclient.execute(request);
 			HttpEntity entity = response.getEntity();
-
-			if (entity != null) {
-				// Format and display the JSON response.
-				System.out.println("REST Response:\n");
-
-				String jsonString = EntityUtils.toString(entity).trim();
-				if (jsonString.charAt(0) == '[') {
-					JSONArray jsonArray = new JSONArray(jsonString);
-					System.out.println(jsonArray.toString(2));
-				} else if (jsonString.charAt(0) == '{') {
-					JSONObject jsonObject = new JSONObject(jsonString);
-					System.out.println(jsonObject.toString(2));
-				} else {
-					System.out.println(jsonString);
-				}
+			System.out.println(response.getStatusLine());
+			
+			if(entity!= null) {
+				System.out.println(EntityUtils.toString(entity));
 			}
+			
 		} catch (Exception e) {
-			// Display error message.
 			System.out.println(e.getMessage());
 		}
+
 	}
 }

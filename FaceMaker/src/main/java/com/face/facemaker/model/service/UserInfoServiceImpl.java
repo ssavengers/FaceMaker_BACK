@@ -15,10 +15,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Autowired
 	private UserInfoDao dao;
 
-	public UserInfoServiceImpl() {
-		dao = new UserInfoDaoImpl();
-	}
-
+	
 	@Override
 	public void addUserInfo(UserInfo userinfo) {
 		try {

@@ -15,14 +15,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#registerBtn").click(function() {
-		if($("#name").val() == "") {
-			alert("이름 입력!!!");
+		if($("#password").val() == "") {
+			alert("please input password");
 			return;
 		} else if($("#id").val() == "") {
-			alert("아이디 입력!!!");
+			alert("please input ID");
 			return;
 		}  else {
-			$("#memberform").attr("action", "${root}/add").submit();
+			$("#memberform").attr("action", "${root}/join").submit();
 		}
 	});
 });
@@ -33,20 +33,19 @@ $(document).ready(function() {
 <div class="container" align="center">
 	<div class="col-lg-6" align="center">
 		<form id="memberform" method="post" action="">
-		<input type="hidden" name="act" id="act" value="join">
 			<br>
-			<h1>회원가입</h1>
+			<h1>Register</h1>
 			<div class="form-group" align="left">
-				<label for="">아이디</label>
+				<label for="">ID</label>
 				<input type="text" class="form-control" id="id" name="id" placeholder="">
 			</div>
 			<div class="form-group" align="left">
-				<label for="">비밀번호</label>
+				<label for="">Password</label>
 				<input type="password" class="form-control" id="password" name="password" placeholder="">
 			</div>
 			<div class="form-group" align="center">
-				<button type="button" class="btn btn-primary" id="registerBtn">가입</button>
-				<button type="reset" class="btn btn-warning">초기화</button>
+				<button type="button" class="btn btn-primary" id="registerBtn">register</button>
+				<button type="reset" class="btn btn-warning">reset</button>
 			</div>
 		</form>
 	</div>
