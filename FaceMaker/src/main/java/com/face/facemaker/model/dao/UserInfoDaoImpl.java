@@ -1,13 +1,5 @@
 package com.face.facemaker.model.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,12 +17,12 @@ public class UserInfoDaoImpl implements UserInfoDao {
 		mapper.addUserInfo(userinfo);
 	}
 	@Override
-	public void deleteUserInfo(String id) {
-		mapper.deleteUserInfo(id);
+	public void deleteUserInfo(String name) {
+		mapper.deleteUserInfo(name);
 	}
 
 	@Override
-	public UserInfo login(String id, String password) {
-		return mapper.login(id, password);
+	public UserInfo login(String name, String age) {
+		return mapper.login(name, age);
 	}
 }

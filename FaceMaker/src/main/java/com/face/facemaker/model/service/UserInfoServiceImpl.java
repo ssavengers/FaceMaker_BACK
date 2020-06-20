@@ -26,9 +26,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public void deleteUserInfo(String id) {
+	public void deleteUserInfo(String name) {
 		try {
-			dao.deleteUserInfo(id);
+			dao.deleteUserInfo(name);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,8 +36,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public UserInfo login(String id, String password) throws SQLException {
-		return dao.login(id, password);
+	public UserInfo login(String name, String age) throws SQLException {
+		return dao.login(name, age);
 	}
 
 }

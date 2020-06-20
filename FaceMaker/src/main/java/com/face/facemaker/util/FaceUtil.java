@@ -21,7 +21,6 @@ public class FaceUtil {
 	//private static final String imageWithFaces = "{\"url\":\"https://dimg.donga.com/wps/NEWS/IMAGE/2019/11/05/98221000.2.jpg\"}";
 	//private static final String imageWithFaces = "{\"url\":\"http://127.0.0.1:9090/face/img/salah.JPG\"}";
 	
-	
 	public static void main(String[] args) {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 

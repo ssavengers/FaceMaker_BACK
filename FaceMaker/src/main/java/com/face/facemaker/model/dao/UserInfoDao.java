@@ -1,7 +1,7 @@
 package com.face.facemaker.model.dao;
 
 import java.sql.SQLException;
-import java.util.List;
+
 import com.face.facemaker.model.dto.UserInfo;
 
 public interface UserInfoDao {
@@ -12,6 +12,6 @@ public interface UserInfoDao {
  * 4.houseinfodaoimpl.java
  */
 	public void addUserInfo(UserInfo userinfo) throws SQLException;
-	public void deleteUserInfo(String id)throws SQLException;
-	public UserInfo login(String id,String password)throws SQLException;
+	public void deleteUserInfo(String name)throws SQLException;
+	public UserInfo login(String name,String age)throws SQLException;
 }

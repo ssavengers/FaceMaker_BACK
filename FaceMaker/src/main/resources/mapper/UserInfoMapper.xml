@@ -5,12 +5,12 @@
 
 <mapper namespace="com.face.facemaker.mapper.UserInfoMapper">
 	<select id="login" resultType="UserInfo">
-  		select * from userinfo where id=#{id} and password=#{password}  
+  		select * from userinfo where name=#{name} and age=#{age}  
   	</select>
 	<delete id="deleteUserInfo">
-  		delete from userinfo where id = #{id}
+  		delete from userinfo where name = #{name}
  	</delete>
  	<insert id="addUserInfo">
- 		insert into userinfo values (#{id},#{password})
+ 		insert into userinfo values (#{name},#{age})
  	</insert>
 </mapper>
