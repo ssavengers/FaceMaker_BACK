@@ -12,4 +12,13 @@
  		update anger_table set anger=#{anger},contempt=#{contempt},fear=#{fear},happiness=#{happiness},
  			neutral=#{neutral},sadness=#{sadness},surprise=#{surprise} where name=#{name}
  	</update>
+ 	
+ 	<select id = "selectAll" resultType="Fear_Table">
+ 		select*from anger_table
+ 	</select>
+ 	
+ 	<select id="selectFear" resultType="Fear_Table">
+ 		select anger from fear_table where #{name}=name
+ 	</select>
+ 	
 </mapper>
