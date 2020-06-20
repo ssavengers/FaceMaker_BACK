@@ -5,6 +5,7 @@ public class UserInfo {
 	private String name;
 	private int age;
 
+	
 	public UserInfo() {
 	}
 
