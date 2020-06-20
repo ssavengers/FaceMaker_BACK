@@ -1,17 +1,19 @@
 package com.face.facemaker.util;
 
+import java.io.File;
 import java.net.URI;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.FileEntity;
-import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
-import java.io.File;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class FaceUtil {
 	// Replace <Subscription Key> with your valid subscription key.
@@ -50,13 +52,28 @@ public class FaceUtil {
 			HttpEntity entity = response.getEntity();
 			System.out.println(response.getStatusLine());
 			
-			if(entity!= null) {
-				System.out.println(EntityUtils.toString(entity));
-			}
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		    if (entity != null)
+            {
+                // Format and display the JSON response.
+                System.out.println("REST Response:\n");
 
-	}
+                String jsonString = EntityUtils.toString(entity).trim();
+                if (jsonString.charAt(0) == '[') {
+                    JSONArray jsonArray = new JSONArray(jsonString);
+                    System.out.println(jsonArray.toString(2));
+                }
+                else if (jsonString.charAt(0) == '{') {
+                    JSONObject jsonObject = new JSONObject(jsonString);
+                    System.out.println(jsonObject.toString(2));
+                } else {
+                    System.out.println(jsonString);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            // Display error message.
+            System.out.println(e.getMessage());
+        }
+    }
 }
