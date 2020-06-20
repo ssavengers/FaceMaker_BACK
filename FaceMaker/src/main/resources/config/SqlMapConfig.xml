@@ -11,6 +11,7 @@
 	
 	<mappers>
 		<mapper resource="mapper/UserInfoMapper.xml"/> 
+		<mapper resource="mapper/NeutralTableMapper.xml"/> 
 	</mappers>
 </configuration>
 

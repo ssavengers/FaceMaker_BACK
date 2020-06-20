@@ -24,8 +24,14 @@ public class FaceUtil {
 	//private static final String imageWithFaces = "{\"url\":\"http://127.0.0.1:9090/face/img/salah.JPG\"}";
 	
 	public static void main(String[] args) {
+		//detectFace();
+	}
+	
+	public static String detectFace(String src) {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-
+		String jsonString = "";
+		
+		
 		try {
 			URIBuilder builder = new URIBuilder(uriBase);
 
@@ -43,8 +49,8 @@ public class FaceUtil {
 			request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
 			
 			//Request Body
-			//File file = new File("C:\\Users\\ELIJAH\\Desktop\\FaceMaker_BACK\\FaceMaker\\src\\main\\webapp\\img\\salah.JPG");
-			File file = new File("./src/main/webapp/img/salah.JPG");
+			//File file = new File("./src/main/webapp/img/salah.JPG");
+			File file = new File(src);
 			FileEntity reqEntity = new FileEntity(file, ContentType.APPLICATION_OCTET_STREAM);
 			request.setEntity(reqEntity);
 			
@@ -52,28 +58,20 @@ public class FaceUtil {
 			HttpEntity entity = response.getEntity();
 			System.out.println(response.getStatusLine());
 			
+			
 		    if (entity != null)
             {
                 // Format and display the JSON response.
                 System.out.println("REST Response:\n");
 
-                String jsonString = EntityUtils.toString(entity).trim();
-                if (jsonString.charAt(0) == '[') {
-                    JSONArray jsonArray = new JSONArray(jsonString);
-                    System.out.println(jsonArray.toString(2));
-                }
-                else if (jsonString.charAt(0) == '{') {
-                    JSONObject jsonObject = new JSONObject(jsonString);
-                    System.out.println(jsonObject.toString(2));
-                } else {
-                    System.out.println(jsonString);
-                }
+                jsonString = EntityUtils.toString(entity).trim();
             }
-        }
+		}
         catch (Exception e)
         {
             // Display error message.
             System.out.println(e.getMessage());
         }
+		return jsonString;
     }
 }
