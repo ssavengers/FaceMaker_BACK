@@ -9,7 +9,9 @@ import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,17 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.face.facemaker.model.dto.UserInfo;
 import com.face.facemaker.model.service.UserInfoService;
-
+@CrossOrigin(origins = { "*" }, maxAge = 6000)
 @Controller
 public class UserinfoController {
    @Autowired
    UserInfoService service;
    
-   public void makeDirectory(HttpServletRequest request) {
-      HttpSession session = request.getSession();
-      UserInfo userinfo = (UserInfo) session.getAttribute("userinfo");
-      String name = userinfo.getName();
-      System.out.println(name);
+   public void makeDirectory(String name) {
       ////////////static의 img 폴더에 해당 id를 이름으로 가지는 디렉토리 생성/////////////////////
       String newPath = "./src/main/webapp/img/"+name;
        File newFolder = new File(newPath);
@@ -46,24 +44,14 @@ public class UserinfoController {
        ////////////////////////////////////////////////////////////////
    }
    
-   @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-   public void login(@RequestBody UserInfo userinfo, HttpServletRequest request) {
+   @RequestMapping(value = "/login/{name}/{age}", method = { RequestMethod.GET, RequestMethod.POST })
+   public void login(@PathVariable String name,@PathVariable int age) {
       System.out.println("LOGIN PROCESS");
-      //String id = userinfo.getId();
-      //String password = userinfo.getPassword();
-      //System.out.println("id:" + id + ",password:" + password);
-      
-      String name = userinfo.getName();
-      int age = userinfo.getAge();
       System.out.println("name:" + name + ",age:" + age);
       
       
-      HttpSession session= request.getSession();
-      session.setAttribute("userinfo", userinfo);
-      
-      makeDirectory(request);
+      makeDirectory(name);
 
-      //return path;
    }
    
    @GetMapping("/logout")
