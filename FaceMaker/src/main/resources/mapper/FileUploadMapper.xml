@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.face.facemaker.mapper.FileUploadMapper">
+ 	<insert id="insertFiles" parameterType="java.util.HashMap">
+    	INSERT INTO upload (
+            file_name,
+            file_size
+        )
+        VALUES
+        (
+            #{fileName},
+            #{fileSize}    
+        )
+    </insert>
+</mapper>

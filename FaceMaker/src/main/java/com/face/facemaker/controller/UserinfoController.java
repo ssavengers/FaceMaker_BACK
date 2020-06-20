@@ -26,7 +26,7 @@ public class UserinfoController {
 	@Autowired
 	UserInfoService service;
 	
-	static String name = "test3";
+	static String name = "test0101";
 	static int age = 20;
 	static String path= "./src/main/webapp/img/";
 	

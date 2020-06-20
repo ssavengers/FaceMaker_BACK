@@ -12,6 +12,7 @@
 	<mappers>
 		<mapper resource="mapper/UserInfoMapper.xml"/> 
 		<mapper resource="mapper/NeutralTableMapper.xml"/> 
+		<mapper resource="mapper/FileUploadMapper.xml"/> 
 	</mappers>
 </configuration>
 
