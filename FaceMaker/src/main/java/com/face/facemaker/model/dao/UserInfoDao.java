@@ -13,5 +13,5 @@ public interface UserInfoDao {
  */
 	public void addUserInfo(UserInfo userinfo) throws SQLException;
 	public void deleteUserInfo(String name)throws SQLException;
-	public UserInfo login(String name,String age)throws SQLException;
+	public UserInfo login(String name,int age)throws SQLException;
 }

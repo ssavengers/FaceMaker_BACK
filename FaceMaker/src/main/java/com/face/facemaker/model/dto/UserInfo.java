@@ -3,7 +3,7 @@ package com.face.facemaker.model.dto;
 // UserInfo 테이블 안의 레코드 1건의 정보를 저장하기 위한 객체
 public class UserInfo {
 	private String name;
-	private String age;
+	private int age;
 
 	public UserInfo() {
 	}
@@ -16,11 +16,11 @@ public class UserInfo {
 		this.name = name;
 	}
 
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
 
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 

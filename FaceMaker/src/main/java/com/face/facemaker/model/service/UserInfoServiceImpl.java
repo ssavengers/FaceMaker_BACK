@@ -36,7 +36,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public UserInfo login(String name, String age) throws SQLException {
+	public UserInfo login(String name, int age) throws SQLException {
 		return dao.login(name, age);
 	}
 

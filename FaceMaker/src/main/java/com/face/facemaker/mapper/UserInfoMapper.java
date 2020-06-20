@@ -4,6 +4,6 @@ import com.face.facemaker.model.dto.UserInfo;
 
 public interface UserInfoMapper {
 	public void addUserInfo(UserInfo userinfo);
-	public void deleteUserInfo(String id);
-	public UserInfo login(String id, String password);
+	public void deleteUserInfo(String name);
+	public UserInfo login(String name, int age);
 }

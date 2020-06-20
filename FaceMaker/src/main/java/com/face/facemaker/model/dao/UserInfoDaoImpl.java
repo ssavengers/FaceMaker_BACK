@@ -22,7 +22,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	}
 
 	@Override
-	public UserInfo login(String name, String age) {
+	public UserInfo login(String name, int age) {
 		return mapper.login(name, age);
 	}
 }
