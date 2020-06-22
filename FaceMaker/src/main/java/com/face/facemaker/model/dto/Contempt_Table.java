@@ -1,6 +1,7 @@
 package com.face.facemaker.model.dto;
 
 public class Contempt_Table {
+	int no;
 	String name;
 	String src;
 	int stage;
@@ -15,6 +16,18 @@ public class Contempt_Table {
 	public Contempt_Table() {
 	}
 	
+	
+
+	public int getNo() {
+		return no;
+	}
+
+
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
 
 
 	public String getName() {

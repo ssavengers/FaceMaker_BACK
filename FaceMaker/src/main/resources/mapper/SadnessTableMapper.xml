@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.face.facemaker.mapper.SadnessTableMapper">
- 	<insert id="addSadness">
+ 	<insert id="insertSadness">
  		insert into sadness_table (name, src, stage) values (#{name},#{src},#{stage})
  	</insert>
  	
@@ -12,4 +12,8 @@
  		update sadness_table set anger=#{anger},contempt=#{contempt},fear=#{fear},happiness=#{happiness},
  			neutral=#{neutral},sadness=#{sadness},surprise=#{surprise} where name=#{name}
  	</update>
+ 	
+ 	<select id="selectOneSadness" resultType="Sadness_Table">
+ 		select * from sadness_table where name = #{name}
+ 	</select>
 </mapper>

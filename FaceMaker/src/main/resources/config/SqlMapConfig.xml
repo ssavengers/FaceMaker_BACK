@@ -12,6 +12,12 @@
 	<mappers>
 		<mapper resource="mapper/UserInfoMapper.xml"/> 
 		<mapper resource="mapper/NeutralTableMapper.xml"/> 
+		<mapper resource="mapper/AngerTableMapper.xml"/> 
+		<mapper resource="mapper/ContemptTableMapper.xml"/> 
+		<mapper resource="mapper/FearTableMapper.xml"/> 
+		<mapper resource="mapper/HappinessTableMapper.xml"/> 
+		<mapper resource="mapper/SadnessTableMapper.xml"/> 
+		<mapper resource="mapper/SurpriseTableMapper.xml"/> 
 		<mapper resource="mapper/FileUploadMapper.xml"/> 
 	</mappers>
 </configuration>

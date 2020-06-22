@@ -1,6 +1,7 @@
 package com.face.facemaker.model.dto;
 
 public class Anger_Table {
+	int no;
 	String name;
 	String src;
 	int stage;
@@ -9,12 +10,26 @@ public class Anger_Table {
 	double fear;
 	double happiness;
 	double neutral;
-	double sadness;
+	double sadness;                                                                                                                                            
 	double surprise;
 
 	public Anger_Table() {}
 	
 	
+	
+
+	public int getNo() {
+		return no;
+	}
+
+
+
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+
 
 
 	public String getName() {

@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.face.facemaker.mapper.AngerTableMapper">
- 	<insert id="addAnger">
+ 	<insert id="insertAnger">
  		insert into anger_table (name, src, stage) values (#{name},#{src},#{stage})
  	</insert>
  	
@@ -13,12 +13,8 @@
  			neutral=#{neutral},sadness=#{sadness},surprise=#{surprise} where name=#{name}
  	</update>
  	
- 	<select id = "selectAll" resultType="Anger_Table">
- 		select*from anger_table
- 	</select>
- 	
- 	<select id="selectAnger" resultType="Anger_Table">
- 		select anger from anger_table where #{name}=name
+ 	<select id="selectOneAnger" resultType="Anger_Table">
+ 		select * from anger_table where name = #{name}
  	</select>
  	
 </mapper>

@@ -1,6 +1,7 @@
 package com.face.facemaker.model.dto;
 
 public class Fear_Table {
+	int no;
 	String name;
 	String src;
 	int stage;
@@ -13,6 +14,16 @@ public class Fear_Table {
 	double surprise;
 
 	public Fear_Table() {
+	}
+
+	
+	public int getNo() {
+		return no;
+	}
+
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 

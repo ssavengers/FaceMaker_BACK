@@ -1,6 +1,7 @@
 package com.face.facemaker.model.dto;
 
 public class Neutral_Table {
+	int no;
 	String name;
 	String src;
 	int stage;
@@ -11,12 +12,21 @@ public class Neutral_Table {
 	double neutral;
 	double sadness;
 	double surprise;
-
+	
 	public Neutral_Table() {
 	}
 	
+	public int getNo() {
+		return no;
+	}
 
 
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	
 	public String getName() {
 		return name;
 	}
