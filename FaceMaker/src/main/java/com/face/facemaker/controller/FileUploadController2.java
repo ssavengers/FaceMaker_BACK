@@ -10,9 +10,11 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.face.facemaker.model.dto.Anger_Table;
@@ -29,6 +31,7 @@ import com.face.facemaker.model.service.HappinessTableService;
 import com.face.facemaker.model.service.NeutralTableService;
 import com.face.facemaker.model.service.SadnessTableService;
 import com.face.facemaker.model.service.SurpriseTableService;
+import com.face.facemaker.model.service.UserInfoService;
 import com.face.facemaker.util.FaceUtil;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -48,7 +51,91 @@ public class FileUploadController2 {
 	SadnessTableService sadnessService;
 	@Autowired
 	SurpriseTableService surpriseService;
+	@Autowired
+	UserInfoService userinfoService;
 	
+	
+	//총 계산
+	@GetMapping("/score/{name}")
+	@ResponseBody
+	public Map sendScore(@PathVariable String name) {
+		Map map = new HashMap();
+		int age = neutralService.selectOneNeutral(name).getAge();
+		int neutral = (int) (neutralService.selectOneNeutral(name).getNeutral()*100);
+		int anger = (int) (100*angerService.selectOneAnger(name).getAnger());
+		int contempt = (int) (100*contemptService.selectOneContempt(name).getContempt());
+		int fear = (int) (fearService.selectOneFear(name).getFear()*100);
+		int happiness = (int) (happinessService.selectOneHappiness(name).getHappiness()*100);
+		int sadness = (int) (sadnessService.selectOneSadness(name).getSadness()*100);
+		int surprise = (int) (surpriseService.selectOneSurprise(name).getSurprise()*100);
+		
+		//System.out.println("age : "+age);
+		System.out.println("neutral : "+neutral);
+		System.out.println("anger : "+anger);
+		System.out.println("contempt : "+contempt);
+		System.out.println("fear : "+fear);
+		System.out.println("happiness : "+happiness);
+		System.out.println("sadness : "+sadness);
+		System.out.println("surprise : "+surprise);
+		
+		delete(name);
+		
+		map.put("age", age);
+		map.put("neutral", neutral);
+		map.put("anger", anger);
+		map.put("contempt", contempt);
+		map.put("fear", fear);
+		map.put("happiness", happiness);
+		map.put("sadness", sadness);
+		map.put("surprise", surprise);
+		
+		return map;
+	}
+	//이미지 파일 폴더와 db삭제
+	public void delete(String name) {
+		//db로 부터 이미지 경로 받아오기
+		String neutral_src = neutralService.selectOneNeutral(name).getSrc();
+		String anger_src = angerService.selectOneAnger(name).getSrc();
+		String contempt_src = contemptService.selectOneContempt(name).getSrc();
+		String fear_src = fearService.selectOneFear(name).getSrc();
+		String happiness_src = happinessService.selectOneHappiness(name).getSrc();
+		String sadness_src = sadnessService.selectOneSadness(name).getSrc();
+		String surprise_src =surpriseService.selectOneSurprise(name).getSrc();
+		String name_src = userinfoService.selectOneUserInfo(name).getSrc();
+		
+		
+		File neutral_image = new File(neutral_src);
+		File anger_image = new File(anger_src);
+		File contempt_image = new File(contempt_src);
+		File fear_image = new File(fear_src);
+		File happiness_image = new File(happiness_src);
+		File sadness_image = new File(sadness_src);
+		File surprise_image = new File(surprise_src);
+		File name_folder = new File(name_src);
+		
+		
+		//db삭제
+		neutralService.deleteNeutral(name);
+		angerService.deleteAnger(name);
+		contemptService.deleteContempt(name);
+		fearService.deleteFear(name);
+		happinessService.deleteHappiness(name);
+		sadnessService.deleteSadness(name);
+		surpriseService.deleteSurprise(name);
+		userinfoService.deleteUserInfo(name);
+		
+		//이미지 및 폴더 삭제
+		neutral_image.delete();
+		anger_image.delete();
+		contempt_image.delete();
+		fear_image.delete();
+		happiness_image.delete();
+		sadness_image.delete();
+		surprise_image.delete();
+		name_folder.delete();
+		
+		
+	}
 
 	@PostMapping(value = "/file/upload/{name}/{stage}")
 	public void upload(@RequestPart MultipartFile mFile, @PathVariable String name, @PathVariable int stage) {
@@ -58,7 +145,14 @@ public class FileUploadController2 {
 					+ mFile.getOriginalFilename();
 			mFile.transferTo(new File(src));
 			File file = new File(src);
+			//////이미 파일이 있는지 확인//////
+			File checkFile = new File("C:\\Users\\ELIJAH\\Desktop\\FaceMaker_BACK\\FaceMaker\\src\\main\\webapp\\img\\" + name + "\\"+Integer.toString(stage)+".jpg");
+			if(checkFile.exists()) {
+				checkFile.delete();
+			}
+			/////////////////////////
 			file.renameTo(new File("C:\\Users\\ELIJAH\\Desktop\\FaceMaker_BACK\\FaceMaker\\src\\main\\webapp\\img\\" + name + "\\"+Integer.toString(stage)+".jpg"));
+			src = "C:\\Users\\ELIJAH\\Desktop\\FaceMaker_BACK\\FaceMaker\\src\\main\\webapp\\img\\" + name + "\\"+Integer.toString(stage)+".jpg";
 			System.out.println(mFile.toString());
 			resultMap.put("result", "success");
 
@@ -121,10 +215,15 @@ public class FileUploadController2 {
 		}
 
 		// DB에 추가
+		
+		//neutral 
 		switch (stage) {
 		case 1:
 			Neutral_Table neutral_table = new Neutral_Table();
 			neutral_table.setName(name);
+			double d_age = Age[0];
+			int age = (int) d_age;
+			neutral_table.setAge(age);
 			neutral_table.setAnger(Anger[0]);
 			neutral_table.setContempt(Contempt[0]);
 			neutral_table.setFear(Fear[0]);
@@ -136,45 +235,6 @@ public class FileUploadController2 {
 
 			break;
 		case 2:
-			Anger_Table anger_table = new Anger_Table();
-			anger_table.setName(name);
-			anger_table.setAnger(Anger[0]);
-			anger_table.setContempt(Contempt[0]);
-			anger_table.setFear(Fear[0]);
-			anger_table.setHappiness(Happiness[0]);
-			anger_table.setNeutral(Neutral[0]);
-			anger_table.setSurprise(Surprise[0]);
-			System.out.println(anger_table);
-			angerService.updateAnger(anger_table);
-
-			break;
-		case 3:
-			Contempt_Table contempt_table = new Contempt_Table();
-			contempt_table.setName(name);
-			contempt_table.setAnger(Anger[0]);
-			contempt_table.setContempt(Contempt[0]);
-			contempt_table.setFear(Fear[0]);
-			contempt_table.setHappiness(Happiness[0]);
-			contempt_table.setNeutral(Neutral[0]);
-			contempt_table.setSurprise(Surprise[0]);
-			System.out.println(contempt_table);
-			contemptService.updateContempt(contempt_table);
-
-			break;
-		case 4:
-			Fear_Table fear_table = new Fear_Table();
-			fear_table.setName(name);
-			fear_table.setAnger(Anger[0]);
-			fear_table.setContempt(Contempt[0]);
-			fear_table.setFear(Fear[0]);
-			fear_table.setHappiness(Happiness[0]);
-			fear_table.setNeutral(Neutral[0]);
-			fear_table.setSurprise(Surprise[0]);
-			System.out.println(fear_table);
-			fearService.updateFear(fear_table);
-
-			break;
-		case 5:
 			Happiness_Table happiness_table = new Happiness_Table();
 			happiness_table.setName(name);
 			happiness_table.setAnger(Anger[0]);
@@ -186,8 +246,9 @@ public class FileUploadController2 {
 			System.out.println(happiness_table);
 			happinessService.updateHappiness(happiness_table);
 
+
 			break;
-		case 6:
+		case 3:
 			Sadness_Table sadness_table = new Sadness_Table();
 			sadness_table.setName(name);
 			sadness_table.setAnger(Anger[0]);
@@ -199,8 +260,34 @@ public class FileUploadController2 {
 			System.out.println(sadness_table);
 			sadnessService.updateSadness(sadness_table);
 
+
 			break;
-		case 7:
+		case 4:
+			Anger_Table anger_table = new Anger_Table();
+			anger_table.setName(name);
+			anger_table.setAnger(Anger[0]);
+			anger_table.setContempt(Contempt[0]);
+			anger_table.setFear(Fear[0]);
+			anger_table.setHappiness(Happiness[0]);
+			anger_table.setNeutral(Neutral[0]);
+			anger_table.setSurprise(Surprise[0]);
+			System.out.println(anger_table);
+			angerService.updateAnger(anger_table);
+			
+			break;
+		case 5:
+			Contempt_Table contempt_table = new Contempt_Table();
+			contempt_table.setName(name);
+			contempt_table.setAnger(Anger[0]);
+			contempt_table.setContempt(Contempt[0]);
+			contempt_table.setFear(Fear[0]);
+			contempt_table.setHappiness(Happiness[0]);
+			contempt_table.setNeutral(Neutral[0]);
+			contempt_table.setSurprise(Surprise[0]);
+			System.out.println(contempt_table);
+			contemptService.updateContempt(contempt_table);
+			break;
+		case 6:
 			Surprise_Table surprise_table = new Surprise_Table();
 			surprise_table.setName(name);
 			surprise_table.setAnger(Anger[0]);
@@ -211,7 +298,19 @@ public class FileUploadController2 {
 			surprise_table.setSurprise(Surprise[0]);
 			System.out.println(surprise_table);
 			surpriseService.updateSurprise(surprise_table);
-
+			
+			break;
+		case 7:
+			Fear_Table fear_table = new Fear_Table();
+			fear_table.setName(name);
+			fear_table.setAnger(Anger[0]);
+			fear_table.setContempt(Contempt[0]);
+			fear_table.setFear(Fear[0]);
+			fear_table.setHappiness(Happiness[0]);
+			fear_table.setNeutral(Neutral[0]);
+			fear_table.setSurprise(Surprise[0]);
+			System.out.println(fear_table);
+			fearService.updateFear(fear_table);
 			break;
 
 		default:
@@ -231,46 +330,46 @@ public class FileUploadController2 {
 			neutralService.insertNeutral(neutral_table);
 			break;
 		case 2:
-			Anger_Table anger_table = new Anger_Table();
-			anger_table.setName(name);
-			anger_table.setSrc(src);
-			anger_table.setStage(stage);
-			angerService.insertAnger(anger_table);
-			break;
-		case 3:
-			Contempt_Table contempt_table = new Contempt_Table();
-			contempt_table.setName(name);
-			contempt_table.setSrc(src);
-			contempt_table.setStage(stage);
-			contemptService.insertContempt(contempt_table);
-			break;
-		case 4:
-			Fear_Table fear_table = new Fear_Table();
-			fear_table.setName(name);
-			fear_table.setSrc(src);
-			fear_table.setStage(stage);;
-			fearService.insertFear(fear_table);
-			break;
-		case 5:
 			Happiness_Table happiness_table = new Happiness_Table();
 			happiness_table.setName(name);
 			happiness_table.setSrc(src);
 			happiness_table.setStage(stage);
 			happinessService.insertHappiness(happiness_table);
 			break;
-		case 6:
+		case 3:
 			Sadness_Table sadness_table = new Sadness_Table();
 			sadness_table.setName(name);
 			sadness_table.setSrc(src);
 			sadness_table.setStage(stage);
 			sadnessService.insertSadness(sadness_table);
 			break;
-		case 7:
+		case 4:
+			Anger_Table anger_table = new Anger_Table();
+			anger_table.setName(name);
+			anger_table.setSrc(src);
+			anger_table.setStage(stage);
+			angerService.insertAnger(anger_table);
+			break;
+		case 5:
+			Contempt_Table contempt_table = new Contempt_Table();
+			contempt_table.setName(name);
+			contempt_table.setSrc(src);
+			contempt_table.setStage(stage);
+			contemptService.insertContempt(contempt_table);
+			break;
+		case 6:
 			Surprise_Table surprise_table = new Surprise_Table();
 			surprise_table.setName(name);
 			surprise_table.setSrc(src);
 			surprise_table.setStage(stage);
 			surpriseService.insertSurprise(surprise_table);
+			break;
+		case 7:
+			Fear_Table fear_table = new Fear_Table();
+			fear_table.setName(name);
+			fear_table.setSrc(src);
+			fear_table.setStage(stage);;
+			fearService.insertFear(fear_table);
 			break;
 
 		default:

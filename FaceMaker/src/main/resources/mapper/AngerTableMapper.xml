@@ -17,4 +17,8 @@
  		select * from anger_table where name = #{name}
  	</select>
  	
+ 	<delete id="deleteAnger">
+ 		delete from anger_table where name = #{name}
+ 	</delete>
+ 	
 </mapper>

@@ -26,4 +26,9 @@ public class NeutralTableServiceImpl implements NeutralTableService{
 	public Neutral_Table selectOneNeutral(String name) {
 		return dao.selectOneNeutral(name);
 	}
+
+	@Override
+	public void deleteNeutral(String name) {
+		dao.deleteNeutral(name);
+	}
 }

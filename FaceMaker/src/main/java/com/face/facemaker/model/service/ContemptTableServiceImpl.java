@@ -24,4 +24,9 @@ public class ContemptTableServiceImpl implements ContemptTableService {
 		return dao.selectOneContempt(name);
 	}
 
+	@Override
+	public void deleteContempt(String name) {
+		dao.deleteContempt(name);
+	}
+
 }

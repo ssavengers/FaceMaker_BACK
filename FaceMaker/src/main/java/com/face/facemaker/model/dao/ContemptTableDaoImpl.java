@@ -24,4 +24,9 @@ public class ContemptTableDaoImpl implements ContemptTableDao{
 		return mapper.selectOneContempt(name);
 	}
 
+	@Override
+	public void deleteContempt(String name) {
+		mapper.deleteContempt(name);
+	}
+
 }

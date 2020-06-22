@@ -2,6 +2,7 @@ package com.face.facemaker.model.dto;
 
 public class Neutral_Table {
 	int no;
+	int age;
 	String name;
 	String src;
 	int stage;
@@ -26,6 +27,13 @@ public class Neutral_Table {
 		this.no = no;
 	}
 
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
 	
 	public String getName() {
 		return name;
@@ -164,15 +172,13 @@ public class Neutral_Table {
 		this.surprise = surprise;
 	}
 
-
-
-
 	@Override
 	public String toString() {
-		return "Anger_Table [name=" + name + ", src=" + src + ", stage=" + stage + ", anger=" + anger + ", contempt="
-				+ contempt + ", fear=" + fear + ", happiness=" + happiness + ", neutral=" + neutral + ", sadness="
-				+ sadness + ", surprise=" + surprise + "]";
+		return "Neutral_Table [no=" + no + ", age=" + age + ", name=" + name + ", src=" + src + ", stage=" + stage
+				+ ", anger=" + anger + ", contempt=" + contempt + ", fear=" + fear + ", happiness=" + happiness
+				+ ", neutral=" + neutral + ", sadness=" + sadness + ", surprise=" + surprise + "]";
 	}
+
 
 	
 }

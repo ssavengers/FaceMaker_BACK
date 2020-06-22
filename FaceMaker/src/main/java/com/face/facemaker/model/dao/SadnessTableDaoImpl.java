@@ -25,4 +25,9 @@ public class SadnessTableDaoImpl implements SadnessTableDao {
 		return mapper.selectOneSadness(name);
 	}
 
+	@Override
+	public void deleteSadness(String name) {
+		mapper.deleteSadness(name);
+	}
+
 }

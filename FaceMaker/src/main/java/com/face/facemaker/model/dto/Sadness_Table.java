@@ -169,13 +169,10 @@ public class Sadness_Table {
 
 
 
-
 	@Override
 	public String toString() {
-		return "Anger_Table [name=" + name + ", src=" + src + ", stage=" + stage + ", anger=" + anger + ", contempt="
-				+ contempt + ", fear=" + fear + ", happiness=" + happiness + ", neutral=" + neutral + ", sadness="
-				+ sadness + ", surprise=" + surprise + "]";
+		return "Sadness_Table [no=" + no + ", name=" + name + ", src=" + src + ", stage=" + stage + ", anger=" + anger
+				+ ", contempt=" + contempt + ", fear=" + fear + ", happiness=" + happiness + ", neutral=" + neutral
+				+ ", sadness=" + sadness + ", surprise=" + surprise + "]";
 	}
-
-	
 }

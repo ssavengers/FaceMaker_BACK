@@ -26,4 +26,9 @@ public class AngerTableServiceImpl implements AngerTableService{
 	public Anger_Table selectOneAnger(String name) {
 		return dao.selectOneAnger(name);
 	}
+
+	@Override
+	public void deleteAnger(String name) {
+		dao.deleteAnger(name);
+	}
 }

@@ -26,4 +26,9 @@ public class SadnessTableServiceImpl implements SadnessTableService {
 		return dao.selectOneSadness(name);
 	}
 
+	@Override
+	public void deleteSadness(String name) {
+		dao.deleteSadness(name);
+	}
+
 }

@@ -16,4 +16,7 @@
  	<select id="selectOneSurprise" resultType="Surprise_Table">
  		select * from surprise_table where name = #{name}
  	</select>
+ 	<delete id="deleteSurprise">
+ 		delete from surprise_table where name = #{name}
+ 	</delete>
 </mapper>

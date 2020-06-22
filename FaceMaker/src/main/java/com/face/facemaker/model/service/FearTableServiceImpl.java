@@ -25,4 +25,9 @@ public class FearTableServiceImpl implements FearTableService {
 		return dao.selectOneFear(name);
 	}
 
+	@Override
+	public void deleteFear(String name) {
+		dao.deleteFear(name);
+	}
+
 }

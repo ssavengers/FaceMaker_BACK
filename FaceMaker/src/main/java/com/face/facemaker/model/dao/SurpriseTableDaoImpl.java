@@ -25,4 +25,9 @@ public class SurpriseTableDaoImpl implements SurpriseTableDao {
 		return mapper.selectOneSurprise(name);
 	}
 
+	@Override
+	public void deleteSurprise(String name) {
+		mapper.deleteSurprise(name);
+	}
+
 }

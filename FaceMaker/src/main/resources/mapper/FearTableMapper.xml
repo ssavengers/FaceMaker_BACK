@@ -3,17 +3,19 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.face.facemaker.mapper.AngerTableMapper">
+<mapper namespace="com.face.facemaker.mapper.FearTableMapper">
  	<insert id="insertFear">
- 		insert into anger_table (name, src, stage) values (#{name},#{src},#{stage})
+ 		insert into fear_table (name, src, stage) values (#{name},#{src},#{stage})
  	</insert>
  	
  	<update id="updateFear">
- 		update anger_table set anger=#{anger},contempt=#{contempt},fear=#{fear},happiness=#{happiness},
+ 		update fear_table set anger=#{anger},contempt=#{contempt},fear=#{fear},happiness=#{happiness},
  			neutral=#{neutral},sadness=#{sadness},surprise=#{surprise} where name=#{name}
  	</update>
  	<select id="selectOneFear" resultType="Fear_Table">
  		select * from fear_table where name = #{name}
  	</select>
-
+	<delete id="deleteFear">
+ 		delete from fear_table where name = #{name}
+ 	</delete>
 </mapper>

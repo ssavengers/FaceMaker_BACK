@@ -30,7 +30,7 @@ public class FaceUtil {
 	public static String detectFace(String src) {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		String jsonString = "";
-		
+		System.out.println("DETECT FACE METHOD");
 		
 		try {
 			URIBuilder builder = new URIBuilder(uriBase);
@@ -56,7 +56,7 @@ public class FaceUtil {
 			
 			HttpResponse response = httpclient.execute(request);
 			HttpEntity entity = response.getEntity();
-			System.out.println(response.getStatusLine());
+			System.out.println("[debug] " + response.getStatusLine());
 			
 			
 		    if (entity != null)

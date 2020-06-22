@@ -24,4 +24,9 @@ public class FearTableDaoImpl implements FearTableDao {
 		return mapper.selectOneFear(name);
 	}
 
+	@Override
+	public void deleteFear(String name) {
+		mapper.deleteFear(name);
+	}
+
 }

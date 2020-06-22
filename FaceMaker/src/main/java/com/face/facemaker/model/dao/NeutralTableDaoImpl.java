@@ -26,4 +26,9 @@ public class NeutralTableDaoImpl implements NeutralTableDao {
 		return mapper.selectOneNeutral(name);
 	}
 
+	@Override
+	public void deleteNeutral(String name) {
+		mapper.deleteNeutral(name);
+	}
+
 }

@@ -25,4 +25,9 @@ public class SurpriseTableServiceImpl implements SurpriseTableService {
 		return dao.selectOneSurprise(name);
 	}
 
+	@Override
+	public void deleteSurprise(String name) {
+		dao.deleteSurprise(name);
+	}
+
 }

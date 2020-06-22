@@ -1,6 +1,8 @@
 package com.face.facemaker.controller;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.face.facemaker.model.dto.UserInfo;
 import com.face.facemaker.model.service.UserInfoService;
@@ -26,13 +29,10 @@ public class UserinfoController {
 	@Autowired
 	UserInfoService service;
 	
-	static String name = "test0101";
-	static int age = 20;
 	static String path= "./src/main/webapp/img/";
 	
-	public void makeDirectory(String name) {
+	public void makeDirectory(String name, int age, String newPath) {
 		//////////// static의 img 폴더에 해당 id를 이름으로 가지는 디렉토리 생성/////////////////////
-		String newPath = path + name;
 		File newFolder = new File(newPath);
 
 		// 해당 디렉토리가 없을 경우 디렉토리를 생성
@@ -50,39 +50,21 @@ public class UserinfoController {
 	}
 
 	@RequestMapping(value = "/login/{name}/{age}", method = { RequestMethod.GET, RequestMethod.POST })
-	public void login(@PathVariable String name, @PathVariable int age) {
+	@ResponseBody
+	public Map login(@PathVariable String name, @PathVariable int age) {
 		System.out.println("LOGIN PROCESS");
 		System.out.println("name:" + name + ",age:" + age);
-
-		makeDirectory(name);
-
-	}
-
-	
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.setAttribute("userinfo", null);
-		return "index";
-	}
-
-	// 회원가입 창으로 이동
-	@GetMapping("/joinForm")
-	public String movejoin(HttpServletRequest request) {
-		return "join";
-	}
-
-	@PostMapping("/join")
-	public String join(HttpServletRequest request) {
-		String name = request.getParameter("name");
-		int age = Integer.parseInt(request.getParameter("age"));
-
+		String src = path + name;
+		makeDirectory(name,age,src);
 		UserInfo userinfo = new UserInfo();
-		userinfo.setName(name);
 		userinfo.setAge(age);
+		userinfo.setName(name);
+		userinfo.setSrc(src);
 		service.addUserInfo(userinfo);
-
-		return "index";
+	
+		Map map = new HashMap();
+		map.put("result", "success");
+		return map;
 	}
 
 }

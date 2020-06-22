@@ -16,4 +16,7 @@
  	<select id="selectOneSadness" resultType="Sadness_Table">
  		select * from sadness_table where name = #{name}
  	</select>
+ 	<delete id="deleteSadness">
+ 		delete from sadness_table where name = #{name}
+ 	</delete>
 </mapper>

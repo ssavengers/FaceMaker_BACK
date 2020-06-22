@@ -15,4 +15,7 @@
  	<select id="selectOneContempt" resultType="Contempt_Table">
  		select * from contempt_table where name = #{name}
  	</select>
+ 	<delete id="deleteContempt">
+ 		delete from contempt_table where name = #{name}
+ 	</delete>
 </mapper>

@@ -24,4 +24,9 @@ public class HappinessTableDaoImpl implements HappinessTableDao {
 		return mapper.selectOneHappiness(name);
 	}
 
+	@Override
+	public void deleteHappiness(String name) {
+		mapper.deleteHappiness(name);
+	}
+
 }

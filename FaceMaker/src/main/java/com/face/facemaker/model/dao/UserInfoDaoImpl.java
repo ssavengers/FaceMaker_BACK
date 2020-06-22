@@ -1,5 +1,6 @@
 package com.face.facemaker.model.dao;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
 	}
 
 	@Override
-	public UserInfo login(String name, int age) {
-		return mapper.login(name, age);
+	public UserInfo selectOneUserInfo(String name) {
+		return mapper.selectOneUserInfo(name);
 	}
 }

@@ -5,15 +5,19 @@
 
 <mapper namespace="com.face.facemaker.mapper.NeutralTableMapper">
  	<insert id="insertNeutral">
- 		insert into neutral_table (name, src, stage) values (#{name},#{src},#{stage})
+ 		insert into neutral_table (age,name, src, stage) values (#{age},#{name},#{src},#{stage})
  	</insert>
  	
  	<update id="updateNeutral">
- 		update neutral_table set anger=#{anger},contempt=#{contempt},fear=#{fear},happiness=#{happiness},
+ 		update neutral_table set anger=#{anger}, contempt=#{contempt},fear=#{fear},happiness=#{happiness},
  			neutral=#{neutral},sadness=#{sadness},surprise=#{surprise} where name=#{name}
  	</update>
  	
  	<select id="selectOneNeutral" resultType="Neutral_Table">
  		select * from neutral_table where name = #{name}
  	</select>
+ 	
+ 	<delete id="deleteNeutral">
+ 		delete from neutral_table where name = #{name}
+ 	</delete>
 </mapper>

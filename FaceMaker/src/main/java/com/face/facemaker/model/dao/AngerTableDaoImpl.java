@@ -26,4 +26,9 @@ public class AngerTableDaoImpl implements AngerTableDao {
 		return mapper.selectOneAnger(name);
 	}
 
+	@Override
+	public void deleteAnger(String name) {
+		mapper.deleteAnger(name);
+	}
+
 }
