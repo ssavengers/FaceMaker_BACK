@@ -31,31 +31,36 @@ public class UserinfoController {
 	
 	static String path= "./src/main/webapp/img/";
 	
-	public void makeDirectory(String name, int age, String newPath) {
+	public void createDirectory(String name, int age, String newPath) {
 		//////////// static의 img 폴더에 해당 id를 이름으로 가지는 디렉토리 생성/////////////////////
 		File newFolder = new File(newPath);
 
-		// 해당 디렉토리가 없을 경우 디렉토리를 생성
+		//if folder is not exist, create it 
 		if (!newFolder.exists()) {
 			try {
-				newFolder.mkdir();// 폴더 생성
-				System.out.println("폴더 생성 완료");
+				newFolder.mkdir();
+				System.out.println("creating folder process is completed!");
 			} catch (Exception e) {
 				e.getStackTrace();
 			}
-		} else {
-			System.out.println("이미 해당 폴더가 있음");
+		}else {
+			System.out.println("Folder is exist already");
 		}
 		////////////////////////////////////////////////////////////////
 	}
-
+	
 	@RequestMapping(value = "/login/{name}/{age}", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
+	////login process
 	public Map login(@PathVariable String name, @PathVariable int age) {
 		System.out.println("LOGIN PROCESS");
 		System.out.println("name:" + name + ",age:" + age);
 		String src = path + name;
-		makeDirectory(name,age,src);
+		
+		//create user folder
+		createDirectory(name,age,src);
+		
+		//add user folder src to DB 
 		UserInfo userinfo = new UserInfo();
 		userinfo.setAge(age);
 		userinfo.setName(name);

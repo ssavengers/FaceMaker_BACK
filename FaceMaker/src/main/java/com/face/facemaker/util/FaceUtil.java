@@ -15,13 +15,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+//detect face using Face API from MS
 public class FaceUtil {
 	// Replace <Subscription Key> with your valid subscription key.
 	private static final String subscriptionKey = "b289648b9a6444878d72f8485e569fa0";
 	private static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
-	//private static final String imageWithFaces = "{\"url\":\"file:///C:/Users/ELIJAH/Desktop/FaceMaker_BACK/FaceMaker/src/main/webapp/img/salah.JPG\"}";
-	//private static final String imageWithFaces = "{\"url\":\"https://dimg.donga.com/wps/NEWS/IMAGE/2019/11/05/98221000.2.jpg\"}";
-	//private static final String imageWithFaces = "{\"url\":\"http://127.0.0.1:9090/face/img/salah.JPG\"}";
 	
 	public static void main(String[] args) {
 		//detectFace();
